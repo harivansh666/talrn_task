@@ -9,6 +9,7 @@
     "dev": "nodemon src/app.ts"
   },
   "keywords": [],
+  "type": "module",
   "author": "",
   "license": "ISC",
   "dependencies": {

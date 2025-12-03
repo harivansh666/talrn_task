@@ -1,29 +1,14 @@
 {
   "compilerOptions": {
-    "rootDir": "./src",
-    "outDir": "./dist",
-
     "target": "ES2020",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-
-    "types": ["node"],
-
-    "sourceMap": true,
-    "declaration": true,
-    "declarationMap": true,
-
-    "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": true,
-
+    "module": "ES2020",
+    "moduleResolution": "Node",
     "esModuleInterop": true,
-
+    "rootDir": "src",
+    "outDir": "dist",
     "strict": true,
-    "jsx": "react-jsx",
-    "isolatedModules": true,
-    "noUncheckedSideEffectImports": true,
-    "moduleDetection": "force",
-    "skipLibCheck": true,
-    "allowSyntheticDefaultImports": true
-  }
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
 }
