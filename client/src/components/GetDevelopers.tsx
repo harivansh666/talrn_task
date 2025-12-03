@@ -17,8 +17,9 @@ function GetDevelopers() {
       try {
         setLoding(true);
         const response = await axios.get(
-          // "http://localhost:8080/developers"
-          "https://talrn-task-ashy.vercel.app/developers"
+          "http://localhost:8080/developers",
+          // "https://talrn-task-ashy.vercel.app/developers",
+          { withCredentials: true }
         );
         setRes(response.data.response);
         console.log(response.data.response);
@@ -42,12 +43,12 @@ function GetDevelopers() {
       {isLoding && (
         <p className="text-center text-orange-400 font-semibold">Loading...</p>
       )}
-      <div className="w-screen p-4 flex flex-row">
+      <div className="w-screen p-4 flex flex-row  flex-wrap  ">
         {res.length > 0 ? (
           res.map((user, index) => (
             <div
               key={index}
-              className="w-60 bg-orange-400 text-white p-2 rounded m-2"
+              className="w-42 bg-orange-400 text-white p-2 rounded m-2"
             >
               <p>Name: {user.name}</p>
               <p>Role: {user.role}</p>

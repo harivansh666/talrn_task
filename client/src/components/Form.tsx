@@ -38,8 +38,10 @@ function Form() {
       setLoding(true);
 
       const response = await axios.post(
-        "https://talrn-task-ashy.vercel.app/developers",
-        developer
+        // "https://talrn-task-ashy.vercel.app/developers",
+        "http://localhost:8080/developers",
+        developer,
+        { withCredentials: true }
       );
 
       if (response.data.success) {
@@ -63,10 +65,10 @@ function Form() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="  bg-white flex flex-col items-center rounded-lg"
+      className=" flex flex-col items-center rounded-lg"
     >
-      <h1 className="font-medium text-2xl p-2">Add Developer</h1>
-      <div className="flex w-[600px] flex-col justify-between gap-4 p-8 items-center">
+      <div className="flex w-[600px] rounded-lg  bg-white flex-col justify-between gap-4 m-4 items-center">
+        <h1 className="font-medium text-2xl p-2">Add Developer</h1>
         <div className="flex justify-start flex-col">
           <label htmlFor="name" className="text-xl font-mono ">
             Name
@@ -155,14 +157,21 @@ function Form() {
             <span className="w-30 font-mono text-center text-1xl">Submit</span>
           )}
         </button>
-      </div>
-      <div className="pb-1.5">
+
         <Link
-          to={"/getdevelopers"}
-          className=" flex justify-center items-center w-30 h-12 bg-orange-300  rounded-md"
+          className="flex w-22 h-12 text-2xl font-medium text-white justify-center  items-center bg-rose-600 rounded-lg"
+          to={"/profile"}
         >
-          Get Data
+          Profile
         </Link>
+        <div className="pb-1.5">
+          <Link
+            to={"/getdevelopers"}
+            className=" flex justify-center items-center w-30 h-12 bg-orange-300  rounded-md"
+          >
+            Check in Db
+          </Link>
+        </div>
       </div>
     </form>
   );
