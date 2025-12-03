@@ -1,6 +1,6 @@
 import { Toaster } from "react-hot-toast";
 import Form from "./components/Form";
-import { Link, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import GetDevelopers from "./components/GetDevelopers";
 
 function App() {
@@ -12,11 +12,16 @@ function App() {
           <Route path="/" element={<Form />} />
           <Route path="/getdevelopers" element={<GetDevelopers />} />
         </Routes>
-        <div className="w-screen h-20 bg-white flex justify-center">
+        <div className="w-screen h-20 bg-white flex justify-center gap-6 ">
           <h1>
             For getting data Click on{" "}
             <span className="text-red-600">Get Data button</span>
           </h1>
+
+          <h1>Name: Harivansh</h1>
+          <h1>email: jazzz1815@gmail.com</h1>
+
+          <h1>Mobile no: 98154 01912</h1>
         </div>
       </div>
     </>

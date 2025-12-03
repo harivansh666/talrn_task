@@ -4,7 +4,6 @@ import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 
 function Form() {
-
   const [developer, setdeveloper] = useState({
     name: "",
     role: "",
@@ -14,7 +13,11 @@ function Form() {
 
   const [isLoding, setLoding] = useState(false);
 
-  const handleChange = (e) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
     const { name, value } = e.target;
 
     setdeveloper({ ...developer, [name]: value });

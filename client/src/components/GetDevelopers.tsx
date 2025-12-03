@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 interface User {
   name: string;
@@ -10,15 +10,23 @@ interface User {
 
 function GetDevelopers() {
   const [res, setRes] = useState<User[]>([]);
+  const [isLoding, setLoding] = useState(false);
 
   useEffect(() => {
     const fetchDevelopers = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/developers");
+        setLoding(true);
+        const response = await axios.get(
+          // "http://localhost:8080/developers"
+          "https://talrn-task-ashy.vercel.app/developers"
+        );
         setRes(response.data.response);
         console.log(response.data.response);
       } catch (error) {
+        setLoding(false);
         console.error(error);
+      } finally {
+        setLoding(false);
       }
     };
     fetchDevelopers();
@@ -28,9 +36,12 @@ function GetDevelopers() {
     <div>
       <div className="flex justify-center items-center">
         <h1 className=" text-white text-2xl font-bold uppercase">
-          GetDevelopers
+          Get Developers
         </h1>
       </div>
+      {isLoding && (
+        <p className="text-center text-orange-400 font-semibold">Loading...</p>
+      )}
       <div className="w-screen p-4 flex flex-row">
         {res.length > 0 ? (
           res.map((user, index) => (
