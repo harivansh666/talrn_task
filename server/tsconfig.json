@@ -2,9 +2,9 @@
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./dist",
-    "target": "ES2020",
-    "module": "commonjs",
-    "moduleResolution": "node",
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "types": ["node"],
     "sourceMap": true,
     "declaration": true,
@@ -13,7 +13,10 @@
     "exactOptionalPropertyTypes": true,
     "esModuleInterop": true,
     "strict": true,
+    "jsx": "react-jsx",
     "isolatedModules": true,
+    "noUncheckedSideEffectImports": true,
+    "moduleDetection": "force",
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true
   }
