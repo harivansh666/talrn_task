@@ -1,14 +1,17 @@
+import axios from "axios";
 import { useState, type FormEvent } from "react";
+import toast from "react-hot-toast";
 
 function Form() {
   const [developer, setdeveloper] = useState({
     name: "",
     role: "",
-    tech_Stack: [],
+    tech_Stack: "",
     Experience: "",
   });
 
   const [isLoding, setLoding] = useState(false);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -16,7 +19,35 @@ function Form() {
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    if (
+      !developer.name ||
+      !developer.Experience ||
+      !developer.role ||
+      !developer.tech_Stack
+    ) {
+      toast.error("Please filll all details");
+    }
     e.preventDefault();
+    try {
+      setLoding(true);
+      const response = await axios.post("http://localhost:3000/developers", {
+        developer,
+      });
+      if (response.data.success) {
+        toast.success("Data saved");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Error during saving");
+    } finally {
+      setdeveloper({
+        name: "",
+        role: "",
+        tech_Stack: "",
+        Experience: "",
+      });
+      setLoding(false);
+    }
     console.log(developer);
   };
 
@@ -24,67 +55,74 @@ function Form() {
     <div className=" w-full h-screen flex justify-center items-center bg-blue-600 ">
       <form
         onSubmit={handleSubmit}
-        className=" h-90 bg-white flex flex-col items-center rounded-lg"
+        className="  bg-white flex flex-col items-center rounded-lg"
       >
         <h1 className="font-medium text-2xl p-2">Add Developer</h1>
-        <div className=" flex flex-row justify-between gap-4 p-8 items-center">
-          <label htmlFor="name" className="text-2xl font-mono ">
-            Name
-          </label>
-          <input
-            type="text"
-            name="name"
-            className="w-50 bg-green-600 rounded-lg text-white  p-2 border-green-800 border-2"
-            value={developer.name}
-            onChange={handleChange}
-            placeholder="Your Name"
-          />
-          <label htmlFor="name" className="text-2xl font-mono">
-            Role
-          </label>
-          <select
-            name="role"
-            onChange={handleChange}
-            id="role"
-            className="bg-green-600 w-40  text-white rounded-lg p-2 border-green-800 border-2"
-          >
-            <option
-              className="bg-green-600 w-40  text-white rounded-lg  "
-              value=""
+        <div className="flex w-[600px] flex-col justify-between gap-4 p-8 items-center">
+          <div className="flex justify-start flex-col">
+            <label htmlFor="name" className="text-xl font-mono ">
+              Name
+            </label>
+            <input
+              type="text"
+              name="name"
+              className="w-50 bg-green-600 rounded-lg text-white  p-2 border-green-800 border-2"
+              value={developer.name}
+              onChange={handleChange}
+              placeholder="Your Name"
+            />
+          </div>
+          <div className="flex justify-start flex-col">
+            <label htmlFor="role" className="text-xl font-mono">
+              Role
+            </label>
+            <select
+              name="role"
+              onChange={handleChange}
+              id="role"
+              className="bg-green-600 w-50  text-white rounded-lg p-2 border-green-800 border-2"
             >
-              Select a role
-            </option>
-            <option value="Frontend">Frontend</option>
-            <option value="Backend">Backend </option>
-            <option value="Full-Stack">Full-Stack</option>
-          </select>
-
-          <label htmlFor="tech_Stack" className="text-2xl font-mono">
-            Tech Stack
-          </label>
-          <input
-            type="text"
-            name="tech_Stack"
-            className="w-50 bg-green-600 rounded-lg text-white  p-2 border-green-800 border-2"
-            value={developer.tech_Stack}
-            onChange={handleChange}
-            placeholder="Your Tech Stack"
-          />
-          <label htmlFor="tech_Stack" className="text-2xl font-mono">
-            Experience
-          </label>
-          <input
-            type="text"
-            name="tech_Stack"
-            className="w-50 bg-green-600 rounded-lg text-white  p-2 border-green-800 border-2"
-            value={developer.tech_Stack}
-            onChange={handleChange}
-            placeholder="Your Tech Stack"
-          />
+              <option
+                className="bg-green-600 w-50  text-white rounded-lg  "
+                value=""
+              >
+                Select a role
+              </option>
+              <option value="Frontend">Frontend</option>
+              <option value="Backend">Backend </option>
+              <option value="Full-Stack">Full-Stack</option>
+            </select>
+          </div>
+          <div className="flex justify-start flex-col">
+            <label htmlFor="tech_Stack" className="text-xl font-mono">
+              Tech Stack
+            </label>
+            <input
+              type="text"
+              name="tech_Stack"
+              className="w-50 bg-green-600 rounded-lg text-white  p-2 border-green-800 border-2"
+              value={developer.tech_Stack}
+              onChange={handleChange}
+              placeholder="Your Tech Stack"
+            />
+          </div>
+          <div className="flex justify-start flex-col">
+            <label htmlFor="Experience" className="text-xl font-mono ">
+              Experience
+            </label>
+            <input
+              type="text"
+              name="Experience"
+              className="w-50 bg-green-600 rounded-lg text-white  p-2 border-green-800 border-2"
+              value={developer.Experience}
+              onChange={handleChange}
+              placeholder="Your Tech Stack"
+            />
+          </div>
 
           <button
             type="submit"
-            className="w-19 h-12 flex justify-center items-center bg-green-700 p-lg text-white rounded-xl"
+            className="w-30 h-12 flex justify-center items-center bg-green-500 p-lg text-white rounded-xl"
           >
             {isLoding ? (
               <div role="status">
