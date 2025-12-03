@@ -3,7 +3,10 @@ import Form from "./components/Form";
 function App() {
   return (
     <>
-      <Form />
+      <div className="w-full h-screen bg-blue-600">
+        <Form />
+        <div>Harivansh</div>
+      </div>
     </>
   );
 }
