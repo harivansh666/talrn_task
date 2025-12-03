@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 
 function Form() {
-  
+
   const [developer, setdeveloper] = useState({
     name: "",
     role: "",
@@ -35,7 +35,7 @@ function Form() {
       setLoding(true);
 
       const response = await axios.post(
-        "http://localhost:8080/developers",
+        "https://talrn-task-ashy.vercel.app/developers",
         developer
       );
 
