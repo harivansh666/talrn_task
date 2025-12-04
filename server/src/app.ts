@@ -16,7 +16,7 @@ app.use(cookieParser())
 app.use(express.json())
 
 app.use(cors({
-    origin: process.env.FrontendUrl,
+    origin: "https://talrn-assignment.netlify.app",
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"]
