@@ -9,8 +9,6 @@ dotenv.config()
 
 db_connect()
 
-
-
 const app = express()
 
 app.use(cookieParser())
