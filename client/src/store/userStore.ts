@@ -1,6 +1,7 @@
 import axios from "axios";
 import { create } from "zustand";
 import { toast } from "react-hot-toast"; // import toast
+import { axiosInstance } from "../config/axios";
 
 type AuthUser = {
     email?: string;
@@ -49,10 +50,7 @@ export const useUserStore = create<UserStore>((set, get) => ({
 
             set({ isLoding: true });
 
-            const response = await axios.post(
-                // "http://localhost:8080/signup"
-                "https://talrn-task-ashy.vercel.app/signup"
-                , data, { withCredentials: true });
+            const response = await axiosInstance.post("/signup", data);
 
             set({ authUser: response.data.dbUser });
 
@@ -73,10 +71,7 @@ export const useUserStore = create<UserStore>((set, get) => ({
         try {
             set({ isLoding: true });
 
-            const response = await axios.post(
-                // "http://localhost:8080/signin"
-                "https://talrn-task-ashy.vercel.app/signin",
-                data, { withCredentials: true });
+            const response = await axiosInstance.post("/signin", data);
             set({
                 authUser: response.data.user,
             });
@@ -97,11 +92,7 @@ export const useUserStore = create<UserStore>((set, get) => ({
     fetchDevelopers: async () => {
         try {
             set({ isLoding: true });
-            const response = await axios.get(
-                // "http://localhost:8080/developers",
-                "https://talrn-task-ashy.vercel.app/developers",
-                { withCredentials: true }
-            );
+            const response = await axiosInstance.get("/developers");
             set({ developers: response.data.response });
             console.log(response.data.response);
 
@@ -118,12 +109,7 @@ export const useUserStore = create<UserStore>((set, get) => ({
             console.log("id", id, "data", data)
             set({ isLoding: true });
 
-            const response = await axios.put(
-                // `http://localhost:8080/developers/${id}`,
-                `https://talrn-task-ashy.vercel.app/developers/${id}`,
-                data,
-                { withCredentials: true }
-            );
+            const response = await axiosInstance.put(`/developers/${id}`, data);
 
             console.log(response.data)
 
@@ -150,8 +136,9 @@ export const useUserStore = create<UserStore>((set, get) => ({
             set({ isLoding: true });
             toast.success("User Deleted successfully")
             console.log("Deleting id", id)
-            // await axios.delete(`http://localhost:8080/developers/${id}`)
-            await axios.delete(`https://talrn-task-ashy.vercel.app/developers/${id}`)
+            await axiosInstance.delete(`/developers/delete/${id}`, {
+                withCredentials: true
+            })
             return { success: true };
         } catch (error) {
             set({ isLoding: true });

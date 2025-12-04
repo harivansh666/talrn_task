@@ -106,13 +106,14 @@ export const EditDeveloper = async (req: Request, res: Response) => {
         });
     }
 };
+
 export const DeleteDeveloper = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
 
         console.log(id)
 
-        const deletedDeveloper = await UserModel.findByIdAndDelete({ _id: id, });
+        const deletedDeveloper = await UserModel.findByIdAndDelete({ _id: id });
 
         if (!deletedDeveloper) {
             return res.status(404).json({ message: "Developer not found" });

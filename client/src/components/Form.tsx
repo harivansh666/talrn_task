@@ -1,7 +1,7 @@
-import axios from "axios";
 import { useState, type FormEvent } from "react";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import { axiosInstance } from "../config/axios";
 
 function Form() {
   const [developer, setdeveloper] = useState({
@@ -37,12 +37,9 @@ function Form() {
     try {
       setLoding(true);
 
-      const response = await axios.post(
-        "https://talrn-task-ashy.vercel.app/developers",
-        // "http://localhost:8080/developers",
-        developer,
-        { withCredentials: true }
-      );
+      const response = await axiosInstance.post("/developers", developer, {
+        withCredentials: true,
+      });
 
       if (response.data.success) {
         toast.success("Data saved");

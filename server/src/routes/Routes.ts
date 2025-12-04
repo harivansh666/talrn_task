@@ -10,7 +10,7 @@ router.post('/developers', protect, PostDevelopers)
 router.get('/developers', protect, GetDevelopers)
 // edit developer 
 router.put('/developers/:id', protect, EditDeveloper)
-router.delete('/developers/:id', protect, DeleteDeveloper)
+router.delete('/developers/delete/:id', protect, DeleteDeveloper)
 
 router.post('/signin', Signin)
 router.post('/signup', Signup)
