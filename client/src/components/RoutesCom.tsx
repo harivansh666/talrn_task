@@ -7,10 +7,11 @@ import Signin from "../pages/Signin";
 import Nav from "./Nav";
 import Form from "./Form";
 import Usertasks from "../pages/Usertasks";
+import DeveloperProfile from "./DeveloperProfile";
+import NotFound from "./NotFound";
 
 function RoutesCom() {
   const { authUser } = useUserStore();
-  console.log(authUser);
 
   return (
     <div className="w-full h-screen">
@@ -21,7 +22,7 @@ function RoutesCom() {
 
         <Route
           path="/adddeveloper"
-          element={authUser?.isadmin ? <Form />: " "}
+          element={authUser?.isadmin ? <Form /> : " "}
         />
 
         <Route
@@ -29,10 +30,16 @@ function RoutesCom() {
           element={authUser?.isadmin ? <GetDevelopers /> : <Usertasks />}
         />
 
+        <Route
+          path="/developers/developer-detail/:developerId"
+          element={<DeveloperProfile />}
+        />
         <Route path="/tasks" element={<Usertasks />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/profile" element={<Profile />} />
+
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );

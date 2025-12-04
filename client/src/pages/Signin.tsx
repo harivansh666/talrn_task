@@ -32,7 +32,7 @@ function Signin() {
       const response = await signin(user);
       console.log(response);
       if (response.success) {
-        navigate("/");
+        navigate("/adddeveloper");
       } else {
         navigate("/signup");
       }

@@ -3,18 +3,25 @@ import cors from "cors"
 import { router } from "./routes/Routes";
 import { db_connect } from "./config/db";
 import dotenv from "dotenv"
+import cookieParser from "cookie-parser";
 
 dotenv.config()
 
 db_connect()
 
+
+
 const app = express()
+
+app.use(cookieParser())
 
 app.use(express.json())
 
 app.use(cors({
     origin: process.env.FrontendUrl,
-    methods: ["GET", "POST"]
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"]
 }))
 
 app.use(router)

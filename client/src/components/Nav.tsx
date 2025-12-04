@@ -23,11 +23,24 @@ const Nav = () => {
             </li>
           </>
         )}
+        {authUser != null ? (
+          <>
+            <li>
+              <Link to="/profile">Profile</Link>
+            </li>
+          </>
+        ) : (
+          <>
+            <li>
+              <Link to="/signup">Signup</Link>
+            </li>
+            <li>
+              <Link to="/signin">Signin</Link>
+            </li>
+          </>
+        )}
 
         {/* Always visible */}
-        <li>
-          <Link to="/profile">Profile</Link>
-        </li>
       </ul>
     </nav>
   );

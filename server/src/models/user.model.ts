@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 const UserSchema = new mongoose.Schema({
-
     name: {
         type: String,
         required: true
@@ -13,10 +12,13 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     }],
-    Experience: {
-        type: Number,
+    experience: {
+        type: String,
         required: true
+    },
+    admin: {
+        type: Boolean,
     }
-})
+}, { timestamps: true })
 
 export const UserModel = mongoose.model("user", UserSchema)

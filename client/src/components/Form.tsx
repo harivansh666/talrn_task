@@ -8,7 +8,7 @@ function Form() {
     name: "",
     role: "",
     tech_Stack: "",
-    Experience: "",
+    experience: "",
   });
 
   const [isLoding, setLoding] = useState(false);
@@ -29,7 +29,7 @@ function Form() {
     if (!developer.name || !developer.role || !developer.tech_Stack) {
       toast.error("Please filll all details");
     }
-    if (Number(developer.Experience) <= 0) {
+    if (Number(developer.experience) <= 0) {
       toast.error("Please enter above 0 experience");
       return;
     }
@@ -38,8 +38,8 @@ function Form() {
       setLoding(true);
 
       const response = await axios.post(
-        // "https://talrn-task-ashy.vercel.app/developers",
-        "http://localhost:8080/developers",
+        "https://talrn-task-ashy.vercel.app/developers",
+        // "http://localhost:8080/developers",
         developer,
         { withCredentials: true }
       );
@@ -51,12 +51,12 @@ function Form() {
       console.log(error);
       toast.error("Error during saving");
     } finally {
-      // setdeveloper({
-      //   name: "",
-      //   role: "",
-      //   tech_Stack: "",
-      //   Experience: "",
-      // });
+      setdeveloper({
+        name: "",
+        role: "",
+        tech_Stack: "",
+        experience: "",
+      });
       setLoding(false);
     }
     console.log(developer);
@@ -65,9 +65,9 @@ function Form() {
   return (
     <form
       onSubmit={handleSubmit}
-      className=" flex flex-col items-center rounded-lg"
+      className=" flex flex-col items-center rounded-lg "
     >
-      <div className="flex w-[600px] rounded-lg  bg-white flex-col justify-between gap-4 m-4 items-center">
+      <div className="flex w-[600px] rounded-lg  bg-white flex-col justify-between gap-4 m-2 items-center">
         <h1 className="font-medium text-2xl p-2">Add Developer</h1>
         <div className="flex justify-start flex-col">
           <label htmlFor="name" className="text-xl font-mono ">
@@ -122,9 +122,9 @@ function Form() {
           </label>
           <input
             type="text"
-            name="Experience"
+            name="experience"
             className="w-50 bg-green-600 rounded-lg text-white  p-2 border-green-800 border-2"
-            value={developer.Experience}
+            value={developer.experience}
             onChange={handleChange}
             placeholder="Your Tech Stack"
           />
