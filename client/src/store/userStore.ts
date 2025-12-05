@@ -36,6 +36,7 @@ type UserStore = {
     fetchDevelopers: () => Promise<void>;
     updateDeveloper: (id: string, data: any) => Promise<{ success: boolean }>;
     DeleteDeveloper: (id: AuthUser) => Promise<{ success: boolean }>;
+    getFilterData: (role: AuthUser) => Promise<{ success: boolean }>;
 }
 
 export const useUserStore = create<UserStore>((set, get) => ({
@@ -149,7 +150,25 @@ export const useUserStore = create<UserStore>((set, get) => ({
         finally {
             set({ isLoding: true });
         }
-    }
+    },
+
+    getFilterData: async (role) => {
+        try {
+            set({ isLoding: true });
+            const response = await axiosInstance.get(`/developers/filter/${role}`, {
+                withCredentials: true
+            })
+            toast.success("User filter successfully")
+            set({ developers: response.data.response });
+            return { success: true }
+        } catch (error) {
+            console.log(error)
+            toast.success("User Not Deleted Successfully")
+            return { success: false };
+        } finally {
+            set({ isLoding: false });
+        }
+    },
 
 
 }));

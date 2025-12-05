@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useUserStore } from "../store/userStore";
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
+import ProfileImage from "./ProfileImage";
 
 type Developer = {
   _id: string;
@@ -10,6 +11,7 @@ type Developer = {
   tech_Stack: string[];
   experience: string;
   createdAt?: string;
+  imgUrl: string;
 };
 
 type FormData = {
@@ -23,6 +25,7 @@ const DeveloperProfile: React.FC = () => {
   const [currentDeveloper, setCurrentDeveloper] = useState<Developer | null>();
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
+
   const [formData, setFormData] = useState<FormData>({
     name: "",
     role: "",
@@ -144,7 +147,10 @@ const DeveloperProfile: React.FC = () => {
     <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 bg-gray-50">
       <div className="max-w-3xl mx-auto">
         <div className="bg-white rounded-lg shadow-lg p-8">
+          <ProfileImage imgUrl={currentDeveloper.imgUrl} />
+
           {/* Edit Button */}
+
           {authUser?.isadmin && (
             <div className="flex justify-end mb-4">
               <button

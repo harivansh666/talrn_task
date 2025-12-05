@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserStore } from "../store/userStore";
 import { Trash2 } from "lucide-react";
@@ -12,10 +12,16 @@ type Developer = {
 };
 
 function GetDevelopers() {
-  const { isLoding, developers, fetchDevelopers, DeleteDeveloper } =
-    useUserStore();
+  const {
+    isLoding,
+    developers,
+    fetchDevelopers,
+    DeleteDeveloper,
+    getFilterData,
+  } = useUserStore();
 
   const [query, setQuery] = useState("");
+  const inputRef = useRef(null);
   const [filteredDevelopers, setFilteredDevelopers] = useState<Developer[]>([]);
 
   const navigate = useNavigate();
@@ -23,6 +29,10 @@ function GetDevelopers() {
   useEffect(() => {
     fetchDevelopers();
   }, [fetchDevelopers]);
+
+  useEffect(() => {
+    console.log("Developers updated:", developers);
+  }, [developers, getFilterData]);
 
   useEffect(() => {
     if (!developers) {
@@ -81,13 +91,14 @@ function GetDevelopers() {
   };
 
   return (
-    <div className="min-h-screen py-8">
-      <div className="flex justify-center items-center flex-col mb-6">
+    <div className="h-screen py-8">
+      <div className="flex justify-center items-center flex-col mb-4">
         <h1 className="text-white text-2xl font-bold uppercase mb-4">
           Get Developers
         </h1>
         <input
           type="text"
+          ref={inputRef}
           value={query}
           onChange={handleChange}
           placeholder="Search by name, role, tech stack, or experience..."
@@ -98,6 +109,64 @@ function GetDevelopers() {
             Found {filteredDevelopers.length} developer(s)
           </p>
         )}
+        <div className="flex flex-row mt-2 gap-4 ">
+          <button
+            name="role"
+            className={
+              isLoding
+                ? "w-18 h-12 bg-white rounded-lg  font-normal"
+                : "w-18 h-12 bg-white rounded-lg hover:bg-gray-200 font-medium "
+            }
+            onClick={(e) => getFilterData("All")}
+          >
+            All
+          </button>
+          <button
+            name="role"
+            className={
+              isLoding
+                ? "w-18 h-12 bg-white rounded-lg  font-normal scale-50"
+                : "w-18 h-12 bg-white rounded-lg hover:bg-gray-200 font-medium  "
+            }
+            onClick={(e) => getFilterData("Full-Stack")}
+          >
+            Fullstack
+          </button>
+          <button
+            name="role"
+            className={
+              isLoding
+                ? "w-18 h-12 bg-white rounded-lg  font-normal"
+                : "w-18 h-12 bg-white rounded-lg hover:bg-gray-200 font-medium "
+            }
+            onClick={(e) => getFilterData("Backend")}
+          >
+            Backend
+          </button>
+
+          <button
+            name="role"
+            className={
+              isLoding
+                ? "w-18 h-12 bg-white rounded-lg  font-normal"
+                : "w-18 h-12 bg-white rounded-lg hover:bg-gray-200 font-medium "
+            }
+            onClick={(e) => getFilterData("Frontend")}
+          >
+            Frontend
+          </button>
+          <button
+            name="Sort"
+            className={
+              isLoding
+                ? "w-24 h-12 bg-white rounded-lg  font-normal"
+                : "w-24 h-12 bg-white rounded-lg hover:bg-gray-200 font-medium "
+            }
+            onClick={(e) => getFilterData("sort")}
+          >
+            Sorting by experience
+          </button>
+        </div>
       </div>
 
       {isLoding && (

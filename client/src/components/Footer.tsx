@@ -1,4 +1,6 @@
-function Footer() {
+import React from "react";
+
+const Footer = () => {
   return (
     <div className="w-screen h-28 overflow-y-auto bg-white flex justify-center gap-6 ">
       <h1>
@@ -13,6 +15,5 @@ function Footer() {
       </div>
     </div>
   );
-}
-
-export default Footer;
+};
+export default React.memo(Footer);

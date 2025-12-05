@@ -54,6 +54,40 @@ export const PostDevelopers = async (req: Request, res: Response) => {
     }
 }
 
+export const GetDevelopersbyRole = async (req: Request, res: Response) => {
+    try {
+        const role = req.params.role as string;
+
+        //  Sort by experience
+        if (role === "sort") {
+            const developers = await UserModel.aggregate([
+                {
+                    $addFields: {
+                        expNum: { $toInt: "$experience" },
+                    },
+                },
+                { $sort: { expNum: -1 } },
+            ]);
+
+            return res.status(200).json({ response: developers });
+        }
+
+        //  Filter by specific role
+        if (role !== "All") {
+            const developers = await UserModel.find({ role });
+            return res.status(200).json({ response: developers });
+        }
+
+        //  Get all developers
+        const developers = await UserModel.find();
+        return res.status(200).json({ response: developers });
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+};
+
 
 
 export const EditDeveloper = async (req: Request, res: Response) => {

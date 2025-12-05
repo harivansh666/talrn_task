@@ -1,8 +1,25 @@
+
+import dotenv from "dotenv";
+dotenv.config();
+
+import { v2 as cloudinary } from "cloudinary";
 import { Request, Response } from "express";
 import bcrypt from "bcrypt"
 import z from "zod"
 import { generateToken } from "../middleware/generayeJwtToken";
 import { UserModelAuth } from "../models/user.auth.model";
+import { UserModel } from "../models/user.model";
+
+const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
+const apiKey = process.env.CLOUDINARY_API_KEY;
+const apiSecret = process.env.CLOUDINARY_API_SECRET;
+
+cloudinary.config({
+    cloud_name: cloudName!,
+    api_key: apiKey!,
+    api_secret: apiSecret!,
+});
+
 
 const SigninSchema = z.object({
     email: z.string().email("Please enter a valid email"),
@@ -134,3 +151,27 @@ export const Signup = async (req: Request, res: Response) => {
         });
     }
 };
+
+export const ProfilePicUpload = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params
+        console.log(id)
+        const { base64Image } = req.body
+
+        // console.log(base64Image)
+        const response = await cloudinary.uploader.upload(base64Image, {
+            folder: "user_profiles",
+            resource_type: "auto",
+        })
+
+        const user = await UserModel.findByIdAndUpdate(id, { imgUrl: response.secure_url }, { new: true })
+        if (!user) return res.json({ success: false })
+
+    } catch (error) {
+        console.log("error during upload:", error);
+        return res.status(500).json({
+            success: false,
+            error: "Internal server error"
+        });
+    }
+}

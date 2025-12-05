@@ -129,7 +129,7 @@ function Form() {
 
         <button
           type="submit"
-          className="w-30 h-12 flex justify-center items-center bg-green-500 p-lg text-white rounded-xl"
+          className="w-30 h-12 mb-6 flex justify-center items-center bg-green-600 p-lg text-white rounded-xl"
         >
           {isLoding ? (
             <div role="status">
@@ -154,21 +154,6 @@ function Form() {
             <span className="w-30 font-mono text-center text-1xl">Submit</span>
           )}
         </button>
-
-        <Link
-          className="flex w-22 h-12 text-2xl font-medium text-white justify-center  items-center bg-rose-600 rounded-lg"
-          to={"/profile"}
-        >
-          Profile
-        </Link>
-        <div className="pb-1.5">
-          <Link
-            to={"/getdevelopers"}
-            className=" flex justify-center items-center w-30 h-12 bg-orange-300  rounded-md"
-          >
-            Check in Db
-          </Link>
-        </div>
       </div>
     </form>
   );
