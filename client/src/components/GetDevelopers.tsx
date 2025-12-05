@@ -46,10 +46,8 @@ function GetDevelopers() {
       const searchQuery = query.toLowerCase().trim();
       const filtered = developers.filter((dev) => {
         try {
-          // Split the search query into words for multi-word searches
           const searchWords = searchQuery.split(/\s+/);
 
-          // Check if all search words match somewhere in the developer's data
           return searchWords.every((word) => {
             const nameMatch = dev.name?.toLowerCase().includes(word);
             const roleMatch = dev.role?.toLowerCase().includes(word);
