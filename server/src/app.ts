@@ -4,6 +4,7 @@ import { router } from "./routes/Routes";
 import { db_connect } from "./config/db";
 import dotenv from "dotenv"
 import cookieParser from "cookie-parser";
+import { success } from "zod";
 
 dotenv.config()
 
@@ -25,6 +26,21 @@ app.use(cors({
     allowedHeaders: ["Content-Type", "Authorization"]
 }))
 
+
+app.get("/check", (req, res) => {
+    try {
+        res.json({
+            success: true,
+            message: "working"
+        })
+    } catch (error) {
+        res.json({
+            success: false,
+            message: "not working"
+        })
+    }
+
+})
 app.use(router)
 
 app.listen(8080, () => {
