@@ -40,7 +40,7 @@ export const PostDevelopers = async (req: Request, res: Response) => {
             experience
 
         })
-        console.log(response)
+        // console.log(response)
         return res.status(201).json({
             success: true,
             response
